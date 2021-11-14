@@ -1,115 +1,157 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items:const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home,color: Colors.black,size:25),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite,color: Colors.black,size:25),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person,color: Colors.black,size:25), 
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.replay,color: Colors.black,size:25),label: '',),],),
+
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child:ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              Container(margin: EdgeInsets.all(20.0),child:Row( mainAxisAlignment:MainAxisAlignment.spaceBetween ,children: [Icon(Icons.menu,size:35),Icon(Icons.shopping_cart,size: 35,),],)),
+              Container(margin: EdgeInsets.all(19),child:Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('Delicious \nfood for you',style:TextStyle(fontFamily: 'Poppins',fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black))],)),
+               Container(margin: EdgeInsets.only(top:20.0,left:20,right:20,bottom:5), height:55,  decoration: BoxDecoration( borderRadius : BorderRadius.only( topLeft: Radius.circular(60),  topRight: Radius.circular(60), bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60), ), color : Color.fromRGBO(239, 238, 238, 1),  ),child:ListTile(leading:Icon(Icons.search,size:30,color: Colors.black54,) ),),
+              Container( padding:  EdgeInsets.all(16.0),decoration: BoxDecoration( boxShadow : [BoxShadow(color: Color.fromRGBO(57, 57, 57, 0.10000000149011612),offset: Offset(0,30),blurRadius: 60)],color : Color.fromRGBO(255, 255, 255, 1),),margin: EdgeInsets.only(top:15,left:25,right:25,bottom: 10),child:Row( mainAxisAlignment:MainAxisAlignment.spaceBetween ,children: [
+                Text('Food',style:TextStyle(fontFamily: 'Poppins',fontSize: 18,color: Colors.black)),
+                Text('Drinks',style:TextStyle(fontFamily: 'Poppins',fontSize: 18,color: Colors.black54)),
+                Text('Snacks',style:TextStyle(fontFamily: 'Poppins',fontSize: 18,color: Colors.black54)),
+                Text('Sauce',style:TextStyle(fontFamily: 'Poppins',fontSize: 18,color: Colors.black54)) ],)),
+              SizedBox(height: 300 ,child:ListView(scrollDirection: Axis.horizontal ,children:[CardsFood(2),CardsFood(4),CardsFood(3)]) ),
+              Container(padding: EdgeInsets.all(10) , decoration: BoxDecoration(color : Color.fromRGBO(239, 238, 238, 3),),height:50,child:Text('Favourite Cafeteria :',style:TextStyle(fontFamily: 'Poppins',fontSize: 20,color: Colors.black)),),
+              SizedBox(height: 100 ,child:ListView(scrollDirection: Axis.horizontal ,children:[Cafeteria(5),Cafeteria(17),Cafeteria(18)]) ),
+              SizedBox(height:30),
+              Container( padding: EdgeInsets.all(5.0),margin: EdgeInsets.all(10),child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Dishes(2),Dishes(3),Dishes(14),Dishes(5)])),               
+               SizedBox(height:30),
+               SizedBox(height: 300 ,child:ListView(scrollDirection: Axis.horizontal ,children:[CardsFood(22),CardsFood(21),CardsFood(18)]) ),
+              Container(padding: EdgeInsets.all(10) , decoration: BoxDecoration(color : Color.fromRGBO(239, 238, 238, 3),),height:50,child:Text('Favourite Dishes :',style:TextStyle(fontFamily: 'Poppins',fontSize: 20,color: Colors.black)),),
+              SizedBox(height: 150 ,child:ListView(scrollDirection: Axis.horizontal ,children:[FavDishes(19),FavDishes(5),FavDishes(3)]) ),
+              SizedBox(height:30),
+              SizedBox(height: 300 ,child:ListView(scrollDirection: Axis.horizontal ,children:[CardsFood(2),CardsFood(3),CardsFood(5)]) ),
+              
+   ]
+
+) ,
+        )
+        
+          
+        ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+class Dishes extends StatelessWidget {
+  int image_val=14;
+   Dishes(int a){this.image_val=a;}
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return CircleAvatar(backgroundColor: Colors.white38 ,backgroundImage: AssetImage('images/Image$image_val.png'),radius:40);  }
+      }
+
+
+class CardsFood extends StatelessWidget {
+  int image_val=14;
+  CardsFood(int a){this.image_val=a;}
+          @override
+          Widget build(BuildContext context) {
+return Container(
+  margin: EdgeInsets.only(top:25,left:15,right:5),width: 200,height: 321,child: Stack(
+        children: <Widget>[
+      Container( width: 200,height: 250,decoration: BoxDecoration(borderRadius : BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30),bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30),),boxShadow : [BoxShadow(color: Color.fromRGBO(57, 57, 57, 0.2),offset: Offset(0,30),blurRadius: 60)],color : Color.fromRGBO(255, 255, 255, 1),)),
+      Column(children:[
+      Container(padding:EdgeInsets.all(6),width: 150,height: 150,child: CircleAvatar(child: CircleAvatar(
+            radius: 100,
+            backgroundColor: Colors.white,
+            backgroundImage: AssetImage('images/Image$image_val.png'),
+          ))),
+      Container(margin: EdgeInsets.only(left:15),child:Text('Veggie tomato mix', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1),fontFamily: 'Poppins',fontSize: 19.5,letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,fontWeight: FontWeight.normal,height: 1.5 /*PERCENT not supported*/),)),
+      Container(padding: EdgeInsets.all(5.0),child:Text('Rs 1,900', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(250, 74, 12, 1),fontFamily: 'Poppins',fontSize: 17,letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,fontWeight: FontWeight.normal,height: 1)),)
+      ]),
+        ]
+      )
     );
-  }
+          }
 }
+
+
+class Cafeteria extends StatelessWidget {
+  int image_val=14;
+  Cafeteria(int a){this.image_val=a;}
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color : Color.fromRGBO(239, 238, 238, 3),),
+      child: Container(
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(13),
+        width: 200,
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromRGBO(255, 255, 255, 1),
+          ),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.white,
+            backgroundImage: AssetImage('images/Image$image_val.png'),
+          ),
+          title: Text('Munch', style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black),),
+          subtitle: Text('welcome'),
+          )))
+    ;}}
+
+
+
+
+class FavDishes extends StatelessWidget {
+  int image_val=14;
+  FavDishes(int a){this.image_val=a;}
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color : Color.fromRGBO(239, 238, 238, 3),),
+      child: Container(
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(15),
+        width: 250,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromRGBO(255, 255, 255, 1),
+          ),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.white,
+            backgroundImage: AssetImage('images/Image$image_val.png'),
+          ),
+          title: Text('Munch', style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black),),
+          subtitle: Text('ttudunurd\nuyoofnu\nttdub'),
+          
+          )))
+    ;}}    
