@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'cart.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(cart());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +34,12 @@ class MyApp extends StatelessWidget {
           child:ListView(
             scrollDirection: Axis.vertical,
             children: <Widget>[
-              Container(margin: EdgeInsets.all(20.0),child:Row( mainAxisAlignment:MainAxisAlignment.spaceBetween ,children: [Icon(Icons.menu,size:35),Icon(Icons.shopping_cart,size: 35,),],)),
+              Container(margin: EdgeInsets.all(20.0),child:Row( mainAxisAlignment:MainAxisAlignment.spaceBetween ,children: [Icon(Icons.menu,size:35),IconButton(icon:Icon(Icons.shopping_cart,size: 35,), onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => cart()),
+            );
+          }, ),],)),
               Container(margin: EdgeInsets.all(19),child:Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('Delicious \nfood for you',style:TextStyle(fontFamily: 'Poppins',fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black))],)),
                Container(margin: EdgeInsets.only(top:20.0,left:20,right:20,bottom:5), height:55,  decoration: BoxDecoration( borderRadius : BorderRadius.only( topLeft: Radius.circular(60),  topRight: Radius.circular(60), bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60), ), color : Color.fromRGBO(239, 238, 238, 1),  ),child:ListTile(leading:Icon(Icons.search,size:30,color: Colors.black54,) ),),
               Container( padding:  EdgeInsets.all(16.0),decoration: BoxDecoration( boxShadow : [BoxShadow(color: Color.fromRGBO(57, 57, 57, 0.10000000149011612),offset: Offset(0,30),blurRadius: 60)],color : Color.fromRGBO(255, 255, 255, 1),),margin: EdgeInsets.only(top:15,left:25,right:25,bottom: 10),child:Row( mainAxisAlignment:MainAxisAlignment.spaceBetween ,children: [
@@ -63,6 +69,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
 class Dishes extends StatelessWidget {
@@ -155,3 +162,4 @@ class FavDishes extends StatelessWidget {
           
           )))
     ;}}    
+
