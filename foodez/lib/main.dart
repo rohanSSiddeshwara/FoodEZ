@@ -232,7 +232,15 @@ class CardsFood extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => food()),
+        );
+      
+      },
+      child:Container(
         margin: EdgeInsets.only(top: 25, left: 15, right: 5),
         width: 200,
         height: 321,
@@ -294,7 +302,8 @@ class CardsFood extends StatelessWidget {
                       height: 1)),
             )
           ]),
-        ]));
+        ])))
+        ;
   }
 }
 
