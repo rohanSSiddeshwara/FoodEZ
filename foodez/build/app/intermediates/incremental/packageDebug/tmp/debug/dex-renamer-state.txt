@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-#Mon Nov 29 17:51:18 IST 2021
+#Mon Nov 29 19:04:06 IST 2021
 base.0=E\:\\workspace\\flutter_ workspace\\FoodEZ\\foodez\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-=======
-#Mon Nov 29 15:56:01 IST 2021
-base.0=C\:\\Users\\Sumukha\\Desktop\\foodez_1\\FoodEZ\\foodez\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
->>>>>>> bfcac5c99ea3d35f944fde8018ad657964d01801
 renamed.0=classes.dex
 path.0=classes.dex
