@@ -1,4 +1,4 @@
-#Fri Nov 26 05:57:55 IST 2021
+#Mon Nov 29 17:51:18 IST 2021
 base.0=E\:\\workspace\\flutter_ workspace\\FoodEZ\\foodez\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

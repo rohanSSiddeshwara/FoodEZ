@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodez/menu.dart';
 import 'cart.dart';
+import 'food.dart';
+import 'menu.dart';
 
 void main() {
-  runApp(cart());
+  runApp(menu());
 }
 
 class MyApp extends StatelessWidget {
