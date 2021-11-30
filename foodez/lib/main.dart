@@ -6,7 +6,8 @@ import 'cart.dart';
 import 'MyProfile.dart';
 import 'food.dart';
 import 'menu.dart';
-
+import 'results.dart';
+import 'food_details_populator.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,6 +17,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final List<food_details> foods=[
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 17),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 3),
+    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 4),
+  ];
+  final List<canteen_details> canteen=[
+    canteen_details(name: "Canteen 1", image_num: 5),
+    canteen_details(name: "Canteen 2", image_num: 2),
+    canteen_details(name: "Canteen 3", image_num: 3),];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -126,33 +137,54 @@ class MyApp extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Food',
+                  Text('Food',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
                             color: Colors.black)),
-                    Text('Drinks',
+                    InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => menu()),
+        );
+      
+      },child:  Text('Drinks',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
-                            color: Colors.black54)),
-                    Text('Snacks',
+                            color: Colors.black54))),
+                    InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => menu()),
+        );
+      
+      },child:  Text('Snacks',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
-                            color: Colors.black54)),
-                    Text('Sauce',
+                            color: Colors.black54))),
+                     InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => menu()),
+        );
+      
+      },child: Text('Sauce',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
-                            color: Colors.black54))
+                            color: Colors.black54)))
                   ],
                 )),
             SizedBox(
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [CardsFood(2), CardsFood(4), CardsFood(3)])),
+                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList() )),
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -169,7 +201,7 @@ class MyApp extends StatelessWidget {
                 height: 100,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [Cafeteria(5), Cafeteria(17), Cafeteria(18)])),
+                    children: canteen.map((e) => Cafeteria(e.image_num, e.name)).toList())),
             SizedBox(height: 30),
             Container(
                 padding: EdgeInsets.all(5.0),
@@ -182,7 +214,7 @@ class MyApp extends StatelessWidget {
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [CardsFood(22), CardsFood(21), CardsFood(18)])),
+                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList())),
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -205,7 +237,7 @@ class MyApp extends StatelessWidget {
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [CardsFood(2), CardsFood(3), CardsFood(5)])),
+                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList())),
           ]),
         ));
   }
@@ -227,16 +259,17 @@ class Dishes extends StatelessWidget {
 
 class CardsFood extends StatelessWidget {
   int image_val = 14;
-  CardsFood(int a) {
-    this.image_val = a;
-  }
+  String name = 'Food';
+  String description = 'Some food Description';
+  double price = 10.0;
+  CardsFood({required this.image_val, required this.name, required this.price,required this.description});
   @override
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food()),
+          MaterialPageRoute(builder: (context) => food(a:this.image_val,b:this.name,c:this.price,d:this.description)),
         );
       
       },
@@ -264,8 +297,8 @@ class CardsFood extends StatelessWidget {
                 color: Color.fromRGBO(255, 255, 255, 1),
               )),
           Column(children: [
-            Container(
-                padding: EdgeInsets.all(6),
+            Container(margin: EdgeInsets.only(left: 15),
+                padding: EdgeInsets.only(top: 10, left: 20, right: 10),
                 width: 150,
                 height: 150,
                 child: CircleAvatar(
@@ -277,7 +310,7 @@ class CardsFood extends StatelessWidget {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: Text(
-                  'Veggie tomato mix',
+                  name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 1),
@@ -290,7 +323,7 @@ class CardsFood extends StatelessWidget {
                 )),
             Container(
               padding: EdgeInsets.all(5.0),
-              child: Text('Rs 1,900',
+              child: Text('Rs $price',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(250, 74, 12, 1),
@@ -308,13 +341,23 @@ class CardsFood extends StatelessWidget {
 }
 
 class Cafeteria extends StatelessWidget {
+  String name = 'Cafeteria';
   int image_val = 14;
-  Cafeteria(int a) {
+  Cafeteria( int a, String b) {
     this.image_val = a;
+    this.name = b;
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => food_results()),
+        );
+      
+      },
+      child:Container(
         decoration: BoxDecoration(
           color: Color.fromRGBO(239, 238, 238, 3),
         ),
@@ -334,15 +377,15 @@ class Cafeteria extends StatelessWidget {
                 backgroundImage: AssetImage('images/Image$image_val.png'),
               ),
               title: Text(
-                'Munch',
+                name,
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     color: Colors.black),
               ),
               subtitle: Text('welcome'),
-            )));
-  }
+            )))
+    );}
 }
 
 class FavDishes extends StatelessWidget {
@@ -381,3 +424,5 @@ class FavDishes extends StatelessWidget {
             )));
   }
 }
+
+
