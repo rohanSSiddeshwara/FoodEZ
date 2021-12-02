@@ -1,8 +1,16 @@
 // ignore_for_file: prefer_const_constructors
-
+import 'food_details_populator.dart';
 import 'package:flutter/material.dart';
 
 class cart extends StatelessWidget {
+   final List<food_details> foods=[
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 4),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 18),
+    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 19),
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 4),
+  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -38,9 +46,10 @@ class cart extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-           cart_element(name: "food_ufv", Price: 100, image_number: 14),
-           cart_element(name: "food", Price: 400, image_number: 14),
-
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.68,
+                child:ListView(children:foods.map((food){return cart_element(image_number:food.image_num,name:food.name,Price:food.price);}).toList() 
+            )),
             Container(
               height: 72,
               margin: EdgeInsets.all(30),
