@@ -9,6 +9,7 @@ class food_results extends StatelessWidget {
     food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 3),
     food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 4),
     food_details(name: "Pulav", price: 34.5, details: "Some details about the food", image_num: 5),
+    food_details(name: "Rools", price: 34.5, details: "Some details about the food", image_num: 22),
   ];
   // This widget is the root of your application.
   @override
