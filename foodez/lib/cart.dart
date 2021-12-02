@@ -38,8 +38,9 @@ class cart extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-           cart_element(name: "food", Price: 50, total_price: 50, image_number: 14),
-           cart_element(name: "food", Price: 60, total_price: 50, image_number: 14),
+           cart_element(name: "food_ufv", Price: 100, image_number: 14),
+           cart_element(name: "food", Price: 400, image_number: 14),
+
             Container(
               height: 72,
               margin: EdgeInsets.all(30),
@@ -66,14 +67,39 @@ class cart extends StatelessWidget {
 
 
 
-class cart_element extends StatelessWidget{
+class cart_element extends StatefulWidget{
   final String name;
   final double Price;
-  final double total_price;
+  
+  
   final int image_number;
-  cart_element({required this.name,required this.Price,required this.total_price,required this.image_number});
-   Widget build(BuildContext context) {
-    return   Container(
+  cart_element({required this.name,required this.Price,required this.image_number});
+
+  @override
+  State<cart_element> createState() => _cart_elementState();
+}
+
+class _cart_elementState extends State<cart_element> {
+  int quantity =1;
+ late double total_price;
+  void _incrementCounter(){
+    setState(() {
+      quantity++;
+    });
+  
+}
+void _decrementCounter(){if(quantity>1){
+    setState(() {
+      quantity--;
+      
+    });}
+    else {quantity=1;}
+  }
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -91,7 +117,7 @@ class cart_element extends StatelessWidget{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage('images/Image$image_number.png'),
+                      backgroundImage: AssetImage('images/Image${widget.image_number}.png'),
                       backgroundColor: Colors.white,
                       radius: 40,
                     ),
@@ -99,13 +125,13 @@ class cart_element extends StatelessWidget{
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            this.name,
+                            this.widget.name,
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 25,
                                 color: Colors.black),
                           ),
-                          Text(this.Price.toString(),
+                          Text(((this.widget.Price)*quantity).toString(),
                               style: TextStyle(
                                   fontFamily: 'Poppins',
                                   fontSize: 20,
@@ -125,23 +151,35 @@ class cart_element extends StatelessWidget{
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                  child: Icon(
-                                Icons.horizontal_rule_rounded,
-                                color: Colors.white,
-                              )),
-                              Text("2",
+                             InkWell(onTap: _decrementCounter,
+                               child: Container(
+                                      child: Icon(Icons.horizontal_rule_rounded ,
+                                    color: Colors.white, 
+                                    
+                                    
+                                    
+                                  )),
+                             ),
+                              
+                              Text(quantity.toString(),
                                   style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 20,
                                       color: Colors.white)),
-                              Container(
-                                  child: Icon(Icons.add_sharp,
-                                      color: Colors.white))
+                              InkWell(onTap: _incrementCounter,
+                                child: Container(
+                                    child: Icon(Icons.add_sharp,
+                                        color: Colors.white)),
+                              )
                             ]),
                       )
                     ])
                   ],
                 ));
-    }
-} 
+    
+  }
+
+
+  }
+
+

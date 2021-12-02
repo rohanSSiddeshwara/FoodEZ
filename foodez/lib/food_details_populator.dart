@@ -19,7 +19,8 @@ class canteen_details{
 class cart_elements{
   final String name;
   final double Price;
+  final int quantity;
   final double total_price;
   final int image_number;
-  cart_elements({required this.name,required this.Price,required this.total_price,required this.image_number});
+  cart_elements({required this.name,required this.Price,required this.quantity,required this.total_price,required this.image_number});
 }
