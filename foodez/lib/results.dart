@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'food.dart';
-
+import 'food_details_populator.dart';
 
 class food_results extends StatelessWidget {
-
+  final List<food_details> foods=[
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 17),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 3),
+    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 4),
+    food_details(name: "Pulav", price: 34.5, details: "Some details about the food", image_num: 5),
+  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -27,43 +33,39 @@ class food_results extends StatelessWidget {
                       )])),
 
               SizedBox(height:800,
-                child: ListView(
+                child: GridView.count (
                     scrollDirection: Axis.vertical,
-                    children: [resultFood(4, 5),resultFood(18, 20),resultFood(2, 17)]),),
+
+                    crossAxisCount: 2,
+                    children:foods.map((e) => CardsFood(image_val:e.image_num,name:e.name,price:e.price,details: e.details,)).toList() ),),
              
             ],)
           ),
         )
         
-          
+      
         ),
     );
   }
 }
 
-class resultFood extends StatelessWidget {
-  final int id_1;
-  final int id_2;
-  resultFood(this.id_1,this.id_2);
-  @override
-  Widget build(BuildContext context) {
-    return Container(child:Row(children:[CardsFood(this.id_1),CardsFood(this.id_2)]));}}
 
 
 
 
 class CardsFood extends StatelessWidget {
   int image_val = 14;
-  CardsFood(int a) {
-    this.image_val = a;
-  }
+  String name = "Dosa";
+  double price = 34.5;
+  String details = "Some details about the food";
+  CardsFood({required this.image_val,required this.name,required this.price,required this.details});
   @override
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food(a:19,b:"food.name",c:99,d:"food.details")),
+          MaterialPageRoute(builder: (context) => food(a:this.image_val,b:this.name,c:this.price,d:this.details)),
         );
       
       },
@@ -71,7 +73,8 @@ class CardsFood extends StatelessWidget {
         margin: EdgeInsets.only(top: 20, left: 15, right: 5),
         width: 155,
         height: 301,
-        child: Stack(children: <Widget>[
+        child: Container(alignment:Alignment.center,
+        child:Stack(children: <Widget>[
           Container(
               width: 200,
               height: 250,
@@ -90,11 +93,12 @@ class CardsFood extends StatelessWidget {
                 ],
                 color: Color.fromRGBO(255, 255, 255, 1),
               )),
-          Column(children: [
+          Container(alignment: Alignment.center,child:   Column(
+           children: [
             Container(
                 padding: EdgeInsets.all(6),
-                width: 150,
-                height: 150,
+                width: 80,
+                height: 80,
                 child: CircleAvatar(
                     child: CircleAvatar(
                   radius: 100,
@@ -104,7 +108,7 @@ class CardsFood extends StatelessWidget {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: Text(
-                  'Veggie tomato mix',
+                  this.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 1),
@@ -117,7 +121,7 @@ class CardsFood extends StatelessWidget {
                 )),
             Container(
               padding: EdgeInsets.all(5.0),
-              child: Text('Rs 1,900',
+              child: Text(this.price.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(250, 74, 12, 1),
@@ -129,7 +133,7 @@ class CardsFood extends StatelessWidget {
                       height: 1)),
             )
           ]),
-        ])))
+    ),]))))
         ;
   }
 }
