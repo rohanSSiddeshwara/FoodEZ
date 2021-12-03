@@ -5,6 +5,7 @@ import 'package:foodez/menu.dart';
 import 'cart.dart';
 import 'MyProfile.dart';
 import 'food.dart';
+import 'food_details_populator.dart';
 import 'menu.dart';
 import 'results.dart';
 
@@ -137,7 +138,7 @@ class menu extends StatelessWidget {
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food(a:14,b:"name",c:99,d:"description")),
+          MaterialPageRoute(builder: (context) => food(food_details(image_num:14,name:"name",price:99,details:"description"))),
         );
       
       },child: Text('Drinks',
@@ -210,7 +211,7 @@ class CardsFood extends StatelessWidget {
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food(a:image_val,b:"name",c:99,d:"description")),
+          MaterialPageRoute(builder: (context) => food(food_details(image_num:14,name:"name",price:99,details:"description"))),
         );
       
       },

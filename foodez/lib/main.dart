@@ -15,7 +15,9 @@ void main() {
   ));
 
 }
-
+List<food_details> foods=[
+    food_details(name: "Dosa", price: 100.5, details: "Some details about the food", image_num: 14),];
+    
 class MyApp extends StatelessWidget {
   final List<food_details> foods=[
     food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
@@ -184,7 +186,7 @@ class MyApp extends StatelessWidget {
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList() )),
+                    children: foods.map((food){return CardsFood(food_det: food,);}).toList() )),
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -214,7 +216,7 @@ class MyApp extends StatelessWidget {
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList())),
+                    children: foods.map((food){return CardsFood(food_det: food,);}).toList())),
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -237,7 +239,7 @@ class MyApp extends StatelessWidget {
                 height: 300,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(image_val:food.image_num,name:food.name,price:food.price,description:food.details);}).toList())),
+                    children: foods.map((food){return CardsFood(food_det: food,);}).toList())),
           ]),
         ));
   }
@@ -258,18 +260,16 @@ class Dishes extends StatelessWidget {
 }
 
 class CardsFood extends StatelessWidget {
-  int image_val = 14;
-  String name = 'Food';
-  String description = 'Some food Description';
-  double price = 10.0;
-  CardsFood({required this.image_val, required this.name, required this.price,required this.description});
+  food_details food_det;
+  CardsFood({required this.food_det});
   @override
   Widget build(BuildContext context) {
+    int image_val = food_det.image_num;
     return  InkWell(
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food(a:this.image_val,b:this.name,c:this.price,d:this.description)),
+          MaterialPageRoute(builder: (context) => food(food_det)),
         );
       
       },
@@ -310,7 +310,7 @@ class CardsFood extends StatelessWidget {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: Text(
-                  name,
+                  food_det.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 1),
@@ -323,7 +323,7 @@ class CardsFood extends StatelessWidget {
                 )),
             Container(
               padding: EdgeInsets.all(5.0),
-              child: Text('Rs $price',
+              child: Text(food_det.price.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(250, 74, 12, 1),
