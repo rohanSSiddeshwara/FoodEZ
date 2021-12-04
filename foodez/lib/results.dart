@@ -2,18 +2,30 @@ import 'package:flutter/material.dart';
 import 'food.dart';
 import 'food_details_populator.dart';
 import 'cart.dart';
+import 'main.dart';
+
+
 
 class food_results extends StatelessWidget {
-  final List<food_details> foods=[
-    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
-    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 17),
-    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 3),
-    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 4),
-    food_details(name: "Pulav", price: 34.5, details: "Some details about the food", image_num: 5),
-    food_details(name: "Rools", price: 34.5, details: "Some details about the food", image_num: 22),
-  ];
+  String food_type;
+  String cafe='';
+  food_results({this.food_type='',this.cafe=''});
+  
+  List<food_details> get_foods(String food_type){
+    List<food_details> temp=[];
+    for(int i=0;i<foods.length;i++){
+      if(food_type!='')if(foods[i].type==food_type){
+        temp.add(foods[i]);
+      }
+      if(cafe!='')if(foods[i].canteen==cafe){
+        temp.add(foods[i]);
+      }
+      
+    }
+    return temp;
+  }
   // This widget is the root of your application.
-  @override
+ @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home:Scaffold(
@@ -39,7 +51,7 @@ class food_results extends StatelessWidget {
                     scrollDirection: Axis.vertical,
 
                     crossAxisCount: 2,
-                    children:foods.map((e) => CardsFood(e)).toList() ),),
+                    children:get_foods(food_type).map((e) => CardsFood(e)).toList() ),),
              
             ],)
           ),
@@ -121,7 +133,7 @@ class CardsFood extends StatelessWidget {
                 )),
             Container(
               padding: EdgeInsets.all(5.0),
-              child: Text(food_det.price.toString(),
+              child: Text('Rs ${food_det.price}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(250, 74, 12, 1),

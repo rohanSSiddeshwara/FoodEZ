@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:foodez/menu.dart';
+
 import 'cart.dart';
 import 'MyProfile.dart';
 import 'food.dart';
-import 'menu.dart';
+
+import 'orders.dart';
 import 'results.dart';
 import 'food_details_populator.dart';
 
@@ -16,25 +17,35 @@ void main() {
 
 }
 List<food_details> foods=[
-    food_details(name: "Dosa", price: 100.5, details: "Some details about the food", image_num: 14),];
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 2,type: 'food',canteen: 'Udupi'),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 3,type: 'food',canteen: 'Munch'),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 4,type: 'food',canteen: 'Udupi'),
+    food_details(name: "Pongal", price: 34.5, details: "Some details about the food",image_num: 5,type: 'food',canteen: 'Munch'),
+    food_details(name: "Grape Juice", price: 34.5, details: "Some details about the food", image_num: 14,type: 'drinks',canteen: 'Udupi'),
+    food_details(name: "French Fries", price: 34.5, details: "Some details about the food", image_num: 17,type: 'snacks',canteen: 'Munch'),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 18,type: 'snacks',canteen: 'Udupi'),
+    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 19,type: 'snacks',canteen: 'Munch'),
+    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 20,type: 'food',canteen: 'Udupi'),
+    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 21,type: 'drinks',canteen: 'Munch'),
+    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 22,type: 'drinks',canteen: 'Tango'),];
     
+   List<canteen_details> canteen=[
+    canteen_details(name: "Udupi", image_num: 5),
+    canteen_details(name: "Munch", image_num: 2),
+    canteen_details(name: "Tango", image_num: 3),];
+
+
+
+
+List<CardsFood_populator> Cards=[CardsFood_populator("food"),CardsFood_populator("drinks"),CardsFood_populator("snacks"),];
+
+
 class MyApp extends StatelessWidget {
-  final List<food_details> foods=[
-    food_details(name: "Dosa", price: 34.5, details: "Some details about the food", image_num: 14),
-    food_details(name: "Idly", price: 34.5, details: "Some details about the food", image_num: 17),
-    food_details(name: "Vada", price: 34.5, details: "Some details about the food", image_num: 3),
-    food_details(name: "Pongal", price: 34.5, details: "Some details about the food", image_num: 4),
-  ];
-  final List<canteen_details> canteen=[
-    canteen_details(name: "Canteen 1", image_num: 5),
-    canteen_details(name: "Canteen 2", image_num: 2),
-    canteen_details(name: "Canteen 3", image_num: 3),];
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomAppBar(
-          child: new Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Expanded(
@@ -61,189 +72,194 @@ class MyApp extends StatelessWidget {
               Expanded(
                 child: IconButton(
                   icon: Icon(Icons.history),
-                  onPressed: () {},
+                  onPressed: () { Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => orders()),
+                            );},
                 ),
               ),
             ],
           ),
         ),
         backgroundColor: Colors.white,
-        body: SafeArea(
-          child: ListView(scrollDirection: Axis.vertical, children: <Widget>[
-            Container(
-                margin: EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.menu, size: 35),
-                    IconButton(
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => cart()),
-                        );
-                      },
+        body: Container(margin:EdgeInsets.all(5),
+          child: SafeArea(
+            child: ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+                Container(
+                    margin: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(onTap: (){Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyProfile()),
+                            );},
+                        child: Icon(Icons.menu, size: 35)),
+                        IconButton(
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => cart()),
+                            );
+                          },
+                        ),
+                      ],
+                    )),
+                Container(
+                    margin: EdgeInsets.all(19),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('Delicious \nfood for you',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black))
+                      ],
+                    )),
+                Container(
+                  margin:
+                      EdgeInsets.only(top: 20.0, left: 20, right: 20, bottom: 5),
+                  height: 55,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(60),
+                      topRight: Radius.circular(60),
+                      bottomLeft: Radius.circular(60),
+                      bottomRight: Radius.circular(60),
                     ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.all(19),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('Delicious \nfood for you',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black))
-                  ],
-                )),
-            Container(
-              margin:
-                  EdgeInsets.only(top: 20.0, left: 20, right: 20, bottom: 5),
-              height: 55,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
-                  bottomLeft: Radius.circular(60),
-                  bottomRight: Radius.circular(60),
+                    color: Color.fromRGBO(239, 238, 238, 1),
+                  ),
+                  child: ListTile(
+                      leading: Icon(
+                    Icons.search,
+                    size: 30,
+                    color: Colors.black54,
+                  )),
                 ),
-                color: Color.fromRGBO(239, 238, 238, 1),
-              ),
-              child: ListTile(
-                  leading: Icon(
-                Icons.search,
-                size: 30,
-                color: Colors.black54,
-              )),
-            ),
-            Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(57, 57, 57, 0.10000000149011612),
-                        offset: Offset(0, 30),
-                        blurRadius: 60)
-                  ],
-                  color: Color.fromRGBO(255, 255, 255, 1),
+                Container(
+                    padding: EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromRGBO(57, 57, 57, 0.10000000149011612),
+                            offset: Offset(0, 30),
+                            blurRadius: 60)
+                      ],
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                    ),
+                    margin:
+                        EdgeInsets.only(top: 15, left: 25, right: 25, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      InkWell(onTap:(){
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => food_results(food_type: "food")));
+        } ,
+                        child: Text('Food',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                  color: Colors.black87)),
+                      ),
+                        InkWell(
+         onTap: (){Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => food_results(food_type: "drinks")));
+        
+          }
+        ,child:  Text('Drinks',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 18,
+                                color: Colors.black87))),
+                        InkWell(
+        onTap: (){Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => food_results(food_type:'snacks')));
+        
+        },child:  Text('Snacks',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 18,
+                                color: Colors.black87))),
+                         InkWell(
+         onTap: (){Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => food_results(food_type: 'sauce')));
+
+        },child: Text('Sauce',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 18,
+                                color: Colors.black87)))
+                      ],
+                    )),Container()
+           ,Cards[0],
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(239, 238, 238, 3),
+                  ),
+                  height: 50,
+                  child: Text('Favourite Cafeteria :',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                          color: Colors.black)),
                 ),
-                margin:
-                    EdgeInsets.only(top: 15, left: 25, right: 25, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Text('Food',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Colors.black)),
-                    InkWell(
-      onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => menu()),
-        );
-      
-      },child:  Text('Drinks',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Colors.black54))),
-                    InkWell(
-      onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => menu()),
-        );
-      
-      },child:  Text('Snacks',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Colors.black54))),
-                     InkWell(
-      onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => menu()),
-        );
-      
-      },child: Text('Sauce',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Colors.black54)))
-                  ],
-                )),
-            SizedBox(
-                height: 300,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(food_det: food,);}).toList() )),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(239, 238, 238, 3),
-              ),
-              height: 50,
-              child: Text('Favourite Cafeteria :',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                      color: Colors.black)),
-            ),
-            SizedBox(
-                height: 100,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: canteen.map((e) => Cafeteria(e.image_num, e.name)).toList())),
-            SizedBox(height: 30),
-            Container(
-                padding: EdgeInsets.all(5.0),
-                margin: EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Dishes(2), Dishes(3), Dishes(14), Dishes(5)])),
-            SizedBox(height: 30),
-            SizedBox(
-                height: 300,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(food_det: food,);}).toList())),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(239, 238, 238, 3),
-              ),
-              height: 50,
-              child: Text('Favourite Dishes :',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                      color: Colors.black)),
-            ),
-            SizedBox(
-                height: 150,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [FavDishes(19), FavDishes(5), FavDishes(3)])),
-            SizedBox(height: 30),
-            SizedBox(
-                height: 300,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: foods.map((food){return CardsFood(food_det: food,);}).toList())),
-          ]),
+                SizedBox(
+                    height: 100,
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: canteen.map((e) => Cafeteria(image_val: e.image_num, name: e.name,)).toList())),
+                SizedBox(height: 30),
+                Container(
+                    padding: EdgeInsets.all(5.0),
+                    margin: EdgeInsets.all(10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Dishes(2), Dishes(3), Dishes(14), Dishes(5)])),
+                SizedBox(height: 30),
+                Cards[1],
+                Container(
+                   padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(239, 238, 238, 3),
+                  ),
+                  height: 50,
+                  child: Text('Favourite Dishes :',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                          color: Colors.black)),
+                ),
+                 Container(
+                    padding: EdgeInsets.all(5.0),
+                    margin: EdgeInsets.all(10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Dishes(2), Dishes(3), Dishes(14), Dishes(5)])),
+                Cards[2],
+           ]),
+          ),
         ));
   }
 }
+
+
+
+
+
 
 class Dishes extends StatelessWidget {
   int image_val = 14;
@@ -256,6 +272,34 @@ class Dishes extends StatelessWidget {
         backgroundColor: Colors.white38,
         backgroundImage: AssetImage('images/Image$image_val.png'),
         radius: 40);
+  }
+}
+
+class CardsFood_populator extends StatefulWidget{
+  String food_type="";
+  CardsFood_populator(String food_type){
+    this.food_type=food_type;
+  }
+  @override
+  State<CardsFood_populator> createState() => _CardsFood_populatorState();
+}
+
+class _CardsFood_populatorState extends State<CardsFood_populator> {
+  List<food_details> temp_food=foods;
+  List<food_details> get_food(String type){
+    food_details i;
+    List<food_details> t_foods=[];
+    for (i in foods){if(i.type==type){t_foods.add(i);}
+    }
+    if (t_foods.isEmpty){return foods ;} 
+    else return t_foods;}
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+                height: 300,
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: get_food(widget.food_type).map((food){return CardsFood(food_det: food);}).toList()));
   }
 }
 
@@ -322,8 +366,9 @@ class CardsFood extends StatelessWidget {
                       height: 1.5 /*PERCENT not supported*/),
                 )),
             Container(
-              padding: EdgeInsets.all(5.0),
-              child: Text(food_det.price.toString(),
+              margin: EdgeInsets.only(left: 19),
+              padding: EdgeInsets.all(6.0),
+              child: Text('Rs ${food_det.price}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color.fromRGBO(250, 74, 12, 1),
@@ -341,19 +386,16 @@ class CardsFood extends StatelessWidget {
 }
 
 class Cafeteria extends StatelessWidget {
-  String name = 'Cafeteria';
-  int image_val = 14;
-  Cafeteria( int a, String b) {
-    this.image_val = a;
-    this.name = b;
-  }
+  String name;
+  int image_val ;
+  Cafeteria({required this.name, required this.image_val});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => food_results()),
+          MaterialPageRoute(builder: (context) => food_results(cafe:name)),
         );
       
       },
@@ -378,12 +420,12 @@ class Cafeteria extends StatelessWidget {
               ),
               title: Text(
                 name,
-                style: TextStyle(
-                    fontSize: 20,
+                style: TextStyle(fontFamily: 'Poppins',
+                    fontSize: 18,
                     fontWeight: FontWeight.normal,
                     color: Colors.black),
               ),
-              subtitle: Text('welcome'),
+             
             )))
     );}
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'orders.dart';
 
 class MyProfile extends StatelessWidget {
   // This widget is the root of your application.
@@ -111,32 +112,37 @@ class MyProfile extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(57, 57, 57, 0.2),
-                      offset: Offset(0, 10),
-                      blurRadius: 60)
-                ],
-              ),
-              padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-              margin: EdgeInsets.all(10),
-              height: 80,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Orders",
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black)),
-                    Icon(Icons.arrow_forward_ios)
-                  ])),
+          InkWell(
+            onTap: () {  Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>orders()));},
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(57, 57, 57, 0.2),
+                        offset: Offset(0, 10),
+                        blurRadius: 60)
+                  ],
+                ),
+                padding:
+                    EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                margin: EdgeInsets.all(10),
+                height: 80,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Orders",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black)),
+                      Icon(Icons.arrow_forward_ios)
+                    ])),
+          ),
           Container(
               decoration: BoxDecoration(
                 color: Colors.white,

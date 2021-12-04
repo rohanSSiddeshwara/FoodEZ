@@ -6,8 +6,12 @@ import 'package:foodez/cart.dart';
 import 'food.dart';
 import 'food_details_populator.dart';
 
+final List<cart_food_details> cart_foods=[];
 
- List<food_details> c_foods=[];
+void add_to_cart_foods(food_details food,int quantity){
+    cart_foods.add(cart_food_details(food_name: food.name, price: food.price, quantity: quantity, total_price: food.price*quantity, image_num: food.image_num));
+}
+
 
 class cart_populator extends StatefulWidget {
  
@@ -15,21 +19,19 @@ class cart_populator extends StatefulWidget {
   _cart_populatorState createState() => _cart_populatorState();
 }
 class _cart_populatorState extends State<cart_populator> {
-  
-  void add_food(food_details food){
-    setState(() {
-      c_foods.add(food);
-    });
-  }
+ 
   @override
   Widget build(BuildContext context) {
-    return ListView(children:c_foods.map((food){return cart_element(food);}).toList());
+    return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.68,
+                child: ListView(children:cart_foods.map((food){return cart_element(food);}).toList()));
   }
 }
 
 
+
 class cart_element extends StatefulWidget{
-  final food_details food;
+  cart_food_details food;
   cart_element(this.food);
 
   @override
@@ -37,23 +39,33 @@ class cart_element extends StatefulWidget{
 }
 
 class _cart_elementState extends State<cart_element> {
-  int quantity =1;
- late double total_price;
   void _incrementCounter(){
+    if(widget.food.quantity==0){
+      setState(() {
+     widget.food.quantity++;
+     });
+     cart_foods.add(widget.food);
+    }
+    else{
     setState(() {
-      quantity++;
+      widget.food.quantity++;
     });
-  
-}
-void _decrementCounter(){if(quantity>0){
-    setState(() {
-      quantity--;
-      if(quantity==0){c_foods.remove(widget.food);}
-    });}
+    }
     
-  }
+}
+void _decrementCounter(){
+    setState(() {if(widget.food.quantity>0) {
+      widget.food.quantity--;
+      if(widget.food.quantity<1){ 
+      cart_foods.remove(widget.food);
+      }
+    }}
+    );
+    }
+
    @override
   Widget build(BuildContext context) {
+    int num=widget.food.image_num;
     return  Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -72,7 +84,7 @@ void _decrementCounter(){if(quantity>0){
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage('images/Image${widget.food.image_num}.png'),
+                      backgroundImage: AssetImage('images/Image${num}.png'),
                       backgroundColor: Colors.white,
                       radius: 40,
                     ),
@@ -80,13 +92,13 @@ void _decrementCounter(){if(quantity>0){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            this.widget.food.name,
+                            widget.food.food_name,
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 25,
                                 color: Colors.black),
                           ),
-                          Text(((this.widget.food.price)*quantity).toString(),
+                          Text('Rs ${(widget.food.price*widget.food.quantity)}',
                               style: TextStyle(
                                   fontFamily: 'Poppins',
                                   fontSize: 20,
@@ -116,7 +128,7 @@ void _decrementCounter(){if(quantity>0){
                                   )),
                              ),
                               
-                              Text(quantity.toString(),
+                              Text(widget.food.quantity.toString(),
                                   style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 20,
