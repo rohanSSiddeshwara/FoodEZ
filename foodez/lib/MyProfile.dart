@@ -113,9 +113,10 @@ class MyProfile extends StatelessWidget {
             height: 20,
           ),
           InkWell(
-            onTap: () {  Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>orders()));},
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => orders()));
+            },
             child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
