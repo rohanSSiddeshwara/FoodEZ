@@ -17,14 +17,14 @@ import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(), 
+    home: MyApp(),
   ));
 }
 
-List<food_details> foods=[];
+List<food_details> foods = [];
 
 void request() async {
-  var url = Uri.parse("http://192.168.232.159:8000/food");
+  var url = Uri.parse("http://192.168.141.21:8000/food");
   http.Response res = await http.get(url);
   var json = jsonDecode(res.body);
   for (int i = 0; i < json.length; i++) {
@@ -33,7 +33,7 @@ void request() async {
         price: json["$i"]["Food_Price"],
         details: json["$i"]["Food_Description"],
         image_num: 2,
-        type: json["$i"]["Food_Type"],      
+        type: json["$i"]["Food_Type"],
         canteen: json["$i"]["Canteen_Name"]));
   }
 }
@@ -54,8 +54,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     foods = [];
     request();
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -68,7 +67,9 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: IconButton(
                   icon: Icon(Icons.home),
-                  onPressed: () {setState(() {   });},
+                  onPressed: () {
+                    setState(() {});
+                  },
                 ),
               ),
               Expanded(
@@ -171,8 +172,7 @@ class _MyAppState extends State<MyApp> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          color:
-                              Colors.white,
+                          color: Colors.white,
                           offset: Offset(0, 30),
                           blurRadius: 60)
                     ],
@@ -253,9 +253,9 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.black)),
               ),
               Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
                   height: 100,
                   child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -272,7 +272,6 @@ class _MyAppState extends State<MyApp> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [Dishes(2), Dishes(3), Dishes(14), Dishes(5)])),
-             
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -285,7 +284,6 @@ class _MyAppState extends State<MyApp> {
                         fontSize: 20,
                         color: Colors.black)),
               ),
-             
               CardsFood_populator("veg"),
             ]),
           ),
@@ -435,38 +433,39 @@ class Cafeteria extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => food_results(cafe:this.name)),
+            MaterialPageRoute(
+                builder: (context) => food_results(cafe: this.name)),
           );
         },
         child: Container(
-                margin: EdgeInsets.all(5),
-                padding: EdgeInsets.all(13),
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                    color:Color.fromRGBO(232, 232, 232, 3),
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage('images/Image$image_val.png'),
-                  ),
-                  title: Text(
-                    this.name,
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),
-                  ),
-                )));
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(13),
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+              color: Color.fromRGBO(232, 232, 232, 3),
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage('images/Image$image_val.png'),
+              ),
+              title: Text(
+                this.name,
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black),
+              ),
+            )));
   }
 }
 

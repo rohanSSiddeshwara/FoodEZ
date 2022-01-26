@@ -1,4 +1,4 @@
-#Tue Jan 04 12:34:37 IST 2022
-base.0=E\:\\workspace\\flutter_ workspace\\FoodEZ\\foodez\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Wed Jan 26 08:44:00 IST 2022
+base.0=/Volumes/P DRIVE/workspace/flutter_workspace/test/foodez/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

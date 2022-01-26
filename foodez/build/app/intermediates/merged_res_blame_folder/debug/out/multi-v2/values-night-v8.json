@@ -1,17 +1,17 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\workspace\\flutter_ workspace\\FoodEZ\\foodez\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "/Volumes/P DRIVE/workspace/flutter_workspace/test/foodez/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "E:\\workspace\\flutter_ workspace\\FoodEZ\\foodez\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "/Volumes/P DRIVE/workspace/flutter_workspace/test/foodez/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
-                        "startOffsets": "175,829",
+                        "startOffsets": "172,806",
                         "endLines": "7,16",
                         "endColumns": "12,12",
-                        "endOffsets": "471,995"
+                        "endOffsets": "464,970"
                     },
                     "to": {
                         "startLines": "2,7",
